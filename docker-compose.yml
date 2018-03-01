@@ -1,0 +1,30 @@
+version: '2'
+
+
+services:
+  dev:
+    image: node:9.5
+    command: bash
+    working_dir: /app
+    volumes:
+      - .:/app
+
+  index:
+    image: node:9.5
+    command: node index.js
+    working_dir: /app
+    volumes:
+      - .:/app
+  server:
+    image: node:9.5
+    command: node_modules/.bin/nodemon src/server/index.js
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - '8000:80'
+  mongo:
+    image: mongo:3.6
+    volumes:
+      - ./.data:/data/db
+      
