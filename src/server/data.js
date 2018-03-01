@@ -47,9 +47,12 @@ function createGame() {
 }
 
 function toObjectId(id) {
-    if (typeof id === 'string') {
-        return ObjectID(id)
-    } else {
+    if (typeof id === 'string')
+        if(ObjectID.isValid(id)) {
+            return ObjectID(id)
+        }else{
+            return null
+        }else {
         return id
     }
 }
