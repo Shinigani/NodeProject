@@ -25,14 +25,15 @@ function getCollection() {
         })
 }
 
-function createGame() {
+function createGame(data) {
     // TODO adapter donner
-    const doc = {
+    const doc = Oject.assign({
         turn: 0,
         history: [{
             board: index.createEmptyBoard(),
         }]
-    }
+    }, data);
+
     return getCollection()
         .then(col => {
             return col.insertOne(doc)
