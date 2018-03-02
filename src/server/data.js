@@ -14,6 +14,7 @@ module.exports = {
     findGame,
     saveGameTurn,
     listAllGames,
+    getPlayerForState,
 }
 
 function getCollection() {
@@ -25,9 +26,9 @@ function getCollection() {
         })
 }
 
-function createGame(data) {
+function createGame(data,players) {
     // TODO adapter donner
-    const doc = Oject.assign({
+    const doc = Object.assign({
         turn: 0,
         history: [{
             board: index.createEmptyBoard(),
@@ -95,6 +96,29 @@ function getLastTurnBDD(id,possibleLastTurn) {
 
     })
 
+}
+
+function getPlayerForState(game) {
+    const turn = getCollection().then(
+        res => {
+            return res.findOne({
+                _id: toObjectId(id),
+                turn: possibleLastTurn,
+            })
+        }
+        ).then(result => {
+            if (result !== null){
+                return result.turn;
+            }else{
+                return null
+            }
+        });
+
+    if (turn % 2 === 0) {
+        return PLAYER_A
+    } else {
+        return PLAYER_B
+    }
 }
 
 function saveGameTurn(id, turn, board) {

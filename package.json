@@ -9,7 +9,9 @@
     "module": "^1.2.5",
     "mongodb": "^3.0.3",
     "morgan": "^1.9.0",
-    "nodemon": "^1.15.1"
+    "nodemon": "^1.15.1",
+    "pug": "^2.0.0-rc.4",
+    "twig": "^1.10.5"
   },
   "devDependencies": {
     "chalk": "^2.3.1"

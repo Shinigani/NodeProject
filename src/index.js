@@ -120,7 +120,7 @@ function playGame() {
 }
 
 function prompt(question, callback) {
-    rl.question(question, callback)
+    rl.question(question, callback);
 }
 
 // display(board)
@@ -136,46 +136,42 @@ function display(board) {
     })
 }
 /*
-* Loop*/
+* Loop pour validation de la ligne*/
 function checkLine() {
-    var gagnant = 0;
-    for (var i=0, len= board.length; i<len; i++) {
-        for (var j=0, len2=7; j<len2; j++) {
-           if(board[i][j] === board[i][j++]){
-               if(board[i][j] !== CELL_EMPTY){
-                   gagnant++
-               }
-               if (gagnant === 4){
-                   console.log('nous avons un gagnant');
-                   break;
-               }
-           }
+
+}
+
+/*
+* Loop pour validation de la colonne
+* */
+function checkColumn(number,player) {
+    let currentValue = null;
+    let previousValue = 0;
+    let gagnant = 0;
+
+    // Vérifie chacune des lignes
+    for (var y = 0; y <= 5; y++) {
+        for (var x = 0; x <= 6; x++) {
+            currentValue = board[y][x];
+            if (currentValue === previousValue && currentValue !== 0) {
+                gagnant += 1;
+            } else {
+                // Reset the tally if you find a gap.
+                gagnant = 0;
+            }
+            if (gagnant === config.countToWin - 1) {
+                return true;
+            }
+            previousValue = currentValue;
         }
 
+        // reset apres chaque ligne les valeurs de verif
+        gagnant = 0;
+        previousValue = 0;
     }
-}
-function checkColumn(number,player) {
-    number = number-1;
-    // console.log(board.length)
-    // for(var i = board.length, lan =0 ; lan <= i ; i--)
-    console.log('\n');
 
-    // for(var i=0, len= board.length; i<len; i++)
-    // {
-    //
-    // }
-
-    // var count = 0;
-    // for (var j = 0; j <= 7; j++) {
-    //     console.log(j)
-    //     count = (board[number][j] === player) ? count+1 :0;
-    //     if (count >= 4) {
-    //         return true;
-    //     }
-    //     else{
-    //         return false;
-    //     }
-    // }
+    // No horizontal win was found.
+    return false;
 }
 
 

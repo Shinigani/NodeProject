@@ -23,15 +23,32 @@ fetch('/ping', {
 
 
 window.addEventListener('load', () => {
-    const boardEl = document.querySelector('#board');
-    const parts = ['<div class="p4-board" >'];
-    for (let col =0; col <6; col++){
-        parts.push(`<div class="col" data-row="${col}">`);
+
+    const boardEl = document.getElementById('board');
+    const parts = ['<div class="p4-board" ><table>'];
+
+    for (let col = 0; col < 6; col++){
+        parts.push(`<tr>${col}`);
         for (let row =0; row <7 ; row++){
-            parts.push(`<div class="cell" data-row="${row}">${col} , ${row}</div>`);
+            parts.push(`<td id="row-puissance" data-col="${col}-${row}"></td>`);
         }
-        parts.push('</div>');
+        parts.push(`</tr>`);
     }
-    parts.push('</div>');
+    parts.push(`</tr></table></div>`);
     boardEl.innerHTML = parts.join('');
 });
+
+window.onload = function () {
+    document.getElementById('row-puissance').addEventListener("click", handleClickOnCase, false);
+}
+
+ function handleClickOnCase(event) {
+         if (event.target.className === "row-puissance") {
+             var colId = -	1;
+             if (colId = event.target.getAttribute('data-colonne')) {
+                 console.log('case clicker');
+             }
+         }
+
+ }
+// eric@rixo.fr
